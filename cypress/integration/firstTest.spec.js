@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const { find } = require("cypress/types/lodash")
+const { find } = require("lodash")
 const { it } = require("mocha")
 
 describe('Our first suite', ()=> {
