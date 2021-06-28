@@ -121,7 +121,7 @@ describe('Our first suite', () => {
             })
 
     })
-    it.only('assert property', () => {
+    it('assert property', () => {
 
         function selectDayFromCurrent(day) {
             let date = new Date()
@@ -193,7 +193,6 @@ describe('Our first suite', () => {
         cy.get('[type="checkbox"]').eq(1).click({ force: true })
         cy.get('[type="checkbox"]').eq(2).click({ force: true })
     })
-
     it('lists and dropdowns', () => {
 
         cy.visit('/')
@@ -234,7 +233,6 @@ describe('Our first suite', () => {
         })
 
     })
-
     it('web tables', () => {
 
         cy.visit('/')
@@ -293,5 +291,37 @@ describe('Our first suite', () => {
             })
         })
     })
+    it('tooltip', () => {
+        cy.visit('/')
+        cy.contains('Modal & Overlays').click()
+        cy.contains('Tooltip').click()
 
+        cy.contains('nb-card', 'Colored Tooltips')
+        .contains('Default').click()
+        cy.get('nb-tooltip').should('contain', 'This is a tooltip')
+    })
+    it('dialog box', () => {
+        cy.visit('/')
+        cy.contains('Tables & Data').click()
+        cy.contains('Smart Table').click()
+
+        //1
+        //cy.get('tbody tr').first().find('.nb-trash').click()
+        //cy.on('window:confirm', (confirm) => {
+        //    expect(confirm).to.eq('Are you sure you want to delete?')
+        //})
+
+        //2
+        //const stub = cy.stub()
+        //cy.on('window:confirm', stub)
+        //cy.get('tbody tr').first().find('.nb-trash').click().then(() => {
+           // expect(stub.getCall(0)).to.be.calledWith('Are you sure you want to delete?')
+
+        //})
+
+         //1
+        cy.get('tbody tr').first().find('.nb-trash').click()
+        cy.on('window:confirm', () => false )
+
+    })
 })
