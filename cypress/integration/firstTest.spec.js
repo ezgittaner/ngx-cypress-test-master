@@ -97,12 +97,16 @@ describe('Our first suite', () => {
         cy.contains('Form Layouts').click()
 
         //1
-        cy.get('[for="exampleInputEmail1"]').should('contain', 'Email address')
+        cy.get('[for="exampleInputEmail1"]')
+        .should('contain', 'Email address')
+        .should('have.class', 'label')
+        .and('have.text', 'Email address')
 
         //2
         cy.get('[for="exampleInputEmail1"]').then(label => {
             expect(label.text()).to.equal('Email address')
-
+            expect(label).to.have.class('label')
+            expect(label).to.have.text('Email address')
             //3
             cy.get('[for="exampleInputEmail1"]').invoke('text').then(text => {
                 expect(text).to.equal('Email address')
@@ -121,7 +125,7 @@ describe('Our first suite', () => {
             })
 
     })
-    it('assert property', () => {
+    it.only('assert property', () => {
 
         function selectDayFromCurrent(day) {
             let date = new Date()
@@ -150,6 +154,7 @@ describe('Our first suite', () => {
 
             let dateAssert = selectDayFromCurrent(5)
             cy.wrap(input).invoke('prop', 'value').should('contain', dateAssert)
+            cy.wrap(input).should('have.value', dateAssert)
         })
 
 
